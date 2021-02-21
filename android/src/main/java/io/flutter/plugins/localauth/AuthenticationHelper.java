@@ -239,6 +239,9 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
         new OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+              completionHandler.onError(
+              "The dialog is close",
+              "The dialog is close");
             stop(false);
           }
         };
