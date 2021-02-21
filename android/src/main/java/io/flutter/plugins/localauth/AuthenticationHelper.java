@@ -187,7 +187,6 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
   public void onAuthenticationFailed() {
     updateFingerprintDialog(
         DialogState.FAILURE, (String) call.argument("fingerprintNotRecognized"));
-        stop(false);
   }
 
   @Override
