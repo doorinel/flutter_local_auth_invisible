@@ -218,7 +218,7 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
   // Suppress inflateParams lint because dialogs do not need to attach to a parent view.
   @SuppressLint("InflateParams")
   private void showFingerprintDialog() {
-    View view = LayoutInflater.from(activity).inflate(R.layout.scan_fp, null, false);
+   View view = LayoutInflater.from(activity).inflate(R.layout.scan_fp, null, false);
     TextView fpDescription = (TextView) view.findViewById(R.id.fingerprint_description);
     TextView title = (TextView) view.findViewById(R.id.fingerprint_signin);
     TextView status = (TextView) view.findViewById(R.id.fingerprint_status);
@@ -226,21 +226,30 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
     title.setText((String) call.argument("signInTitle"));
     status.setText((String) call.argument("fingerprintHint"));
     Context context = new ContextThemeWrapper(activity, R.style.AlertDialogCustom);
+     OnClickListener usePassword =
+        new OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            completionHandler.onError(
+              "Use Password",
+              "Use Password");
+               stop(false);
+          }
+        };
     OnClickListener cancelHandler =
         new OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-             completionHandler.onError(
-              "The dialog is close",
-              "The dialog is close");
             stop(false);
           }
         };
+
     fingerprintDialog =
         new AlertDialog.Builder(context)
             .setView(view)
-            .setNegativeButton((String) call.argument(CANCEL_BUTTON), cancelHandler)
-            .setCancelable(true)
+            .setNegativeButton("Use Password", usePassword)
+            .setPositiveButton((String) call.argument(CANCEL_BUTTON), cancelHandler)
+            .setCancelable(false)
             .show();
      fingerprintDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
           @Override
