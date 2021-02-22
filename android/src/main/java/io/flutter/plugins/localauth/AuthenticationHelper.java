@@ -240,8 +240,8 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
           @Override
           public void onClick(DialogInterface dialog, int which) {
               completionHandler.onError(
-              "The dialog is close",
-              "The dialog is close");
+              "Cancel",
+              "Cancel");
             stop(false);
           }
         };
@@ -253,15 +253,7 @@ class AuthenticationHelper extends FingerprintManagerCompat.AuthenticationCallba
             .setPositiveButton((String) call.argument(CANCEL_BUTTON), cancelHandler)
             .setCancelable(false)
             .show();
-     fingerprintDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-          @Override
-          public void onCancel(DialogInterface dialog) {
-               completionHandler.onError(
-              "The dialog is close",
-              "The dialog is close");
-              stop(false);
-          }
-      });  
+    
     fingerprintDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND‌​);
   }
 
